@@ -1,6 +1,8 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include "Shaders/ShaderFilesUtil.h"
+
 #include <iostream>
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -9,7 +11,7 @@ void processInput(GLFWwindow* window);
 // GOOD GOD MOVE THESE INTO THEIR OWN FILES PLEASE THANK YOU
 // ==========================================================
 
-const char* vertexShaderSource = "#version 330 core\n"
+/*const char* vertexShaderSource = "#version 330 core\n"
 	"layout (location = 0) in vec3 aPos;\n"
 	"void main()\n"
 	"{\n"
@@ -22,6 +24,8 @@ const char* fragmentShaderSource = "#version 330 core\n"
 	"{\n"
 	"	FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
 	"}\0";
+*/
+
 
 // ==========================================================
 
@@ -86,6 +90,14 @@ int main() {
 
 	// SHADERS
 	// ===============================================================
+
+	// Read in the GLSL files
+	const char* vertexShaderSource;
+	const char* fragmentShaderSource;
+
+	vertexShaderSource = readInShaderFile("Shaders/Base Shaders/BaseVertexShader.glsl");
+	fragmentShaderSource = readInShaderFile("Shaders/Base Shaders/BaseFragmentShader.glsl");
+
 	unsigned int vertexShader;
 	vertexShader = glCreateShader(GL_VERTEX_SHADER);
 	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
@@ -131,6 +143,8 @@ int main() {
 	glUseProgram(shaderProgram);
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
+	free((void*)vertexShaderSource);
+	free((void*)fragmentShaderSource);
 
 	// ================================================================
 
