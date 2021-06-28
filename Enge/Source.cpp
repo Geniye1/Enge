@@ -47,7 +47,7 @@ int main() {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	LOG("############ STARTING CORE GLFW V%s ############\n\n", glfwGetVersionString());
+	LOG('i', "STARTING CORE GLFW V%s\n\n", glfwGetVersionString());
 
 	// IF ON MAC OS X
 	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
@@ -60,14 +60,14 @@ int main() {
 	}
 	glfwMakeContextCurrent(window);
 
-	LOG("GLFW WINDOW SUCCESSFULLY CREATED...\n");
+	LOG('i', "GLFW WINDOW SUCCESSFULLY CREATED...\n");
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
 		LOG_ERR("ERROR:::GLAD ### Failed to initialize GLAD god damn\n");
 		return -1;
 	}
 
-	LOG("GLAD SUCCESSFULLY LOADED...\n");
+	LOG('i', "GLAD SUCCESSFULLY LOADED...\n");
 
 	glViewport(0, 0, 800, 600); // (0,0) is the lower left corner, (800,600) is the top right corner
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback); // Callback function so when the window is resized the render viewport is also resized
@@ -157,7 +157,7 @@ int main() {
 	// UNCOMMENT FOR WIREFRAME MODE
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-	LOG("ENTERING RENDER LOOP...\n");
+	LOG('i', "ENTERING RENDER LOOP...\n");
 
 	while (!glfwWindowShouldClose(window)) {
 		// Input

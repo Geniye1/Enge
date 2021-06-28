@@ -12,14 +12,14 @@
 #define GL_LOG_FILE  "Logger/Enge_Main.log"
 
 #define LOG_START()  Logger::gl_startGlLog()
-#define LOG(...)     Logger::gl_log(__VA_ARGS__)
+#define LOG(flag, ...)     Logger::gl_log(flag, __VA_ARGS__)
 #define LOG_ERR(...) Logger::gl_log_err(__VA_ARGS__)
 
 class Logger {
 public:
 	
 	static bool gl_startGlLog();
-	static bool gl_log(const char* message, ...);
+	static bool gl_log(char flag, const char* message, ...);
 	static bool gl_log_err(const char* message, ...);
 
 };
