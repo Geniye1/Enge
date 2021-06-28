@@ -7,6 +7,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-char* readInShaderFile(const char* filePath);
+
 
 #endif

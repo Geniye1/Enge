@@ -147,12 +147,12 @@
   <ItemGroup>
     <ClCompile Include="..\GLAD\First Gen\src\glad.c" />
     <ClCompile Include="Logger\Logger.cpp" />
-    <ClCompile Include="Shaders\ShaderFilesUtil.cpp" />
+    <ClCompile Include="Shaders\Shader.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Logger\Logger.h" />
-    <ClInclude Include="Shaders\ShaderFilesUtil.h" />
+    <ClInclude Include="Shaders\Shader.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\Base Shaders\BaseFragmentShader.glsl" />
