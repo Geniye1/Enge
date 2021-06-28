@@ -8,6 +8,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
+#include <Windows.h>
 
 #define GL_LOG_FILE  "Logger/Enge_Main.log"
 
@@ -15,13 +16,15 @@
 #define LOG(flag, ...)     Logger::gl_log(flag, __VA_ARGS__)
 #define LOG_ERR(...) Logger::gl_log_err(__VA_ARGS__)
 
+#define CONSOLE_COLOR(colorId) SetConsoleTextAttribute(Logger::consoleHandle, colorId);
+
 class Logger {
 public:
-	
 	static bool gl_startGlLog();
 	static bool gl_log(char flag, const char* message, ...);
 	static bool gl_log_err(const char* message, ...);
-
+private:
+	static HANDLE consoleHandle;
 };
 
 #endif

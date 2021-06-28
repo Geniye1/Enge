@@ -11,17 +11,6 @@ void glfw_error_callback(int error, const char* description);
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
 
-/*float vertices[] = {
-	 0.5f,  0.5f, 0.0f,  // top right
-	 0.5f, -0.5f, 0.0f,  // bottom right
-	-0.5f, -0.5f, 0.0f,  // bottom left
-	-0.5f,  0.5f, 0.0f   // top left 
-};
-unsigned int indices[] = {  // note that we start from 0!
-	0, 1, 3,   // first triangle
-	1, 2, 3    // second triangle
-};*/
-
 float vertices[] = {
 	-1.0f, -0.5f, 0.0f,
 	-0.5f,  0.5f, 0.0f,
@@ -60,7 +49,7 @@ int main() {
 	}
 	glfwMakeContextCurrent(window);
 
-	LOG('i', "GLFW WINDOW SUCCESSFULLY CREATED...\n");
+	LOG('w', "GLFW WINDOW SUCCESSFULLY CREATED...\n");
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
 		LOG_ERR("ERROR:::GLAD ### Failed to initialize GLAD god damn\n");
@@ -157,7 +146,7 @@ int main() {
 	// UNCOMMENT FOR WIREFRAME MODE
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-	LOG('i', "ENTERING RENDER LOOP...\n");
+	LOG('d', "ENTERING RENDER LOOP...\n");
 
 	while (!glfwWindowShouldClose(window)) {
 		// Input
