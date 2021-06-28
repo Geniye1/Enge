@@ -4,6 +4,8 @@
 #include "Logger/Logger.h"
 #include "Shaders/Shader.h"
 
+#include "ThirdPartHelpers/stb_image.h"
+
 #include <iostream>
 #include <assert.h>
 
@@ -12,16 +14,15 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
 
 float vertices[] = {
-	-1.0f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,
-	-0.5f,  0.5f, 0.0f,  0.0f, 1.0f, 0.0f,
-	 0.0f, -0.5f, 0.0f,  0.0f, 0.0f, 1.0f,
-	 0.5f, 0.5f, 0.0f,   1.0f, 0.0f, 0.0f,
-	 1.0f, -0.5f, 0.0f,  0.0f, 0.0f, 1.0f
+	 // Positions        // Colors          // Texture Coords
+	 0.5f,  0.5f, 0.0f,  1.0f, 0.0f, 0.0f,  1.0f, 1.0f,
+	 0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,  1.0f, 0.0f,
+	-0.5f, -0.5f, 0.0f,  0.0f, 0.0f, 1.0f,  0.0f, 0.0f,
+	-0.5f,  0.5f, 0.0f,  1.0f, 1.0f, 0.0f,  0.0f, 1.0f
 };
-
-unsigned int indices[] = {
-	0, 1, 2, // First tri
-	2, 3, 4  // Second tri
+unsigned int indices[] = {  // note that we start from 0!
+	0, 1, 3,   // first triangle
+	1, 2, 3    // second triangle
 };
 
 int main() {
@@ -79,11 +80,18 @@ int main() {
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
 	// Attributes
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+	// Position attribs
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
 
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+	// Color attribs
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
+
+	// Texture coord attribs
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+	glEnableVertexAttribArray(2);
+
 	// =======================================================================
 
 	// UNCOMMENT FOR WIREFRAME MODE
@@ -92,6 +100,39 @@ int main() {
 	LOG('d', "ENTERING RENDER LOOP...\n");
 
 	Shader currentShader("Shaders/Base Shaders/BaseVertexShader.glsl", "Shaders/Base Shaders/BaseFragmentShader.glsl");
+
+	// Texturing
+
+	// Set the texture to mirror and repeat in both the S and T directions
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
+
+	// Set the texture filters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR); // Interpolated mipmaps
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);  // Interpolated texits
+
+	LOG('i', "TEXTURE SETTINGS SET...\n");
+
+	// Generate textures
+	unsigned int texture;
+	glGenTextures(1, &texture);
+	glBindTexture(GL_TEXTURE_2D, texture);
+
+	// Load the texture with the stb_image helper
+	int width, height, nrChannels;
+	unsigned char* data = stbi_load("Rsc/container.jpg", &width, &height, &nrChannels, 0);
+
+	LOG('i', "TEXTURE LOADED INTO MEMORY...\n");
+
+	if (data) {
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_2D);
+		LOG('i', "TEXTURE GENERATED...\n");
+	}
+	else {
+		LOG_ERR("FAILED TO LOAD TEXTURE DUMBASS\n");
+	}
+	stbi_image_free(data); // Free the image memory
 
 	while (!glfwWindowShouldClose(window)) {
 		// Input
@@ -106,6 +147,7 @@ int main() {
 		// fuckin with the uniform
 		float timeValue = (float)glfwGetTime();
 
+		glBindTexture(GL_TEXTURE_2D, texture);
 		glBindVertexArray(vao);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
