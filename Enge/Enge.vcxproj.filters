@@ -24,14 +24,23 @@
     <ClCompile Include="Shaders\ShaderFilesUtil.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Logger\Logger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shaders\ShaderFilesUtil.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger\Logger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\Base Shaders\BaseVertexShader.glsl" />
     <None Include="Shaders\Base Shaders\BaseFragmentShader.glsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Logger\Enge_Main.log" />
   </ItemGroup>
 </Project>

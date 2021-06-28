@@ -2,34 +2,16 @@
 #include <GLFW/glfw3.h>
 
 #include "Shaders/ShaderFilesUtil.h"
+#include "Logger/Logger.h"
 
 #include <iostream>
+#include <assert.h>
 
+void glfw_error_callback(int error, const char* description);
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
 
-// GOOD GOD MOVE THESE INTO THEIR OWN FILES PLEASE THANK YOU
-// ==========================================================
-
-/*const char* vertexShaderSource = "#version 330 core\n"
-	"layout (location = 0) in vec3 aPos;\n"
-	"void main()\n"
-	"{\n"
-	"   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-	"}\0";
-
-const char* fragmentShaderSource = "#version 330 core\n"
-	"out vec4 FragColor;\n"
-	"void main()\n"
-	"{\n"
-	"	FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
-	"}\0";
-*/
-
-
-// ==========================================================
-
-float vertices[] = {
+/*float vertices[] = {
 	 0.5f,  0.5f, 0.0f,  // top right
 	 0.5f, -0.5f, 0.0f,  // bottom right
 	-0.5f, -0.5f, 0.0f,  // bottom left
@@ -38,30 +20,54 @@ float vertices[] = {
 unsigned int indices[] = {  // note that we start from 0!
 	0, 1, 3,   // first triangle
 	1, 2, 3    // second triangle
+};*/
+
+float vertices[] = {
+	-1.0f, -0.5f, 0.0f,
+	-0.5f,  0.5f, 0.0f,
+	 0.0f, -0.5f, 0.0f,
+	 0.5f, 0.5f, 0.0f,
+	 1.0f, -0.5f, 0.0f
+};
+
+unsigned int indices[] = {
+	0, 1, 2, // First tri
+	2, 3, 4  // Second tri
 };
 
 int main() {
 	
+	// Assertion to ensure the log can be opened, if fails the program will terminate
+	assert(LOG_START());
+
+	glfwSetErrorCallback(glfw_error_callback);
+
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+	LOG("############ STARTING CORE GLFW V%s ############\n\n", glfwGetVersionString());
 
 	// IF ON MAC OS X
 	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
 	GLFWwindow* window = glfwCreateWindow(800, 600, "I can't type anymore", NULL, NULL);
 	if (window == NULL) {
-		std::cout << "Failed to create GLFW window fucko" << std::endl;
+		LOG_ERR("ERROR::GLFW_WINDOW ### Failed to create GLFW window lmao imagine sucking\n");
 		glfwTerminate();
 		return -1;
 	}
 	glfwMakeContextCurrent(window);
 
+	LOG("GLFW WINDOW SUCCESSFULLY CREATED...\n");
+
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-		std::cout << "Failed to initalize GLAD fucko" << std::endl;
+		LOG_ERR("ERROR:::GLAD ### Failed to initialize GLAD god damn\n");
 		return -1;
 	}
+
+	LOG("GLAD SUCCESSFULLY LOADED...\n");
 
 	glViewport(0, 0, 800, 600); // (0,0) is the lower left corner, (800,600) is the top right corner
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback); // Callback function so when the window is resized the render viewport is also resized
@@ -148,7 +154,10 @@ int main() {
 
 	// ================================================================
 
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	// UNCOMMENT FOR WIREFRAME MODE
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+	LOG("ENTERING RENDER LOOP...\n");
 
 	while (!glfwWindowShouldClose(window)) {
 		// Input
@@ -161,6 +170,7 @@ int main() {
 		glUseProgram(shaderProgram);
 		glBindVertexArray(vao);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		//glDrawArrays(GL_TRIANGLES, 0, 6);
 		glBindVertexArray(0);
 
 		glfwSwapBuffers(window);
@@ -169,6 +179,10 @@ int main() {
 
 	glfwTerminate();
 	return 0;
+}
+
+void glfw_error_callback(int error, const char* description) {
+	LOG_ERR("GLFW ERROR: code %i, msg: %s\n", error, description);
 }
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {

@@ -39,6 +39,7 @@ char* readInShaderFile(const char* filePath) {
 		exit(3);
 	}
 
+	// Add the EOF character
 	shaderSource[fileSize] = '\0';
 	
 	fclose(shaderFile);

@@ -146,15 +146,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\GLAD\First Gen\src\glad.c" />
+    <ClCompile Include="Logger\Logger.cpp" />
     <ClCompile Include="Shaders\ShaderFilesUtil.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Logger\Logger.h" />
     <ClInclude Include="Shaders\ShaderFilesUtil.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\Base Shaders\BaseFragmentShader.glsl" />
     <None Include="Shaders\Base Shaders\BaseVertexShader.glsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Logger\Enge_Main.log" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
