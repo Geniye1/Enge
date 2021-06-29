@@ -15,10 +15,10 @@ void processInput(GLFWwindow* window);
 
 float vertices[] = {
 	 // Positions        // Colors          // Texture Coords
-	 0.5f,  0.5f, 0.0f,  1.0f, 0.0f, 0.0f,  1.0f, 1.0f,
-	 0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,  1.0f, 0.0f,
-	-0.5f, -0.5f, 0.0f,  0.0f, 0.0f, 1.0f,  0.0f, 0.0f,
-	-0.5f,  0.5f, 0.0f,  1.0f, 1.0f, 0.0f,  0.0f, 1.0f
+	 0.5f,  0.5f, 0.0f,  1.0f, 0.0f, 0.0f,  1.0f, 1.0f,       // Top right
+	 0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,  1.0f, 0.0f,		  // Bottom right
+	-0.5f, -0.5f, 0.0f,  0.0f, 0.0f, 1.0f,  0.0f, 0.0f,		  // Bottom left
+	-0.5f,  0.5f, 0.0f,  1.0f, 1.0f, 0.0f,  0.0f, 1.0f		  // Top left
 };
 unsigned int indices[] = {  // note that we start from 0!
 	0, 1, 3,   // first triangle
@@ -114,25 +114,50 @@ int main() {
 	LOG('i', "TEXTURE SETTINGS SET...\n");
 
 	// Generate textures
-	unsigned int texture;
-	glGenTextures(1, &texture);
-	glBindTexture(GL_TEXTURE_2D, texture);
+	unsigned int texture1, texture2;
+	glGenTextures(1, &texture1);
+	glGenTextures(1, &texture2);
 
-	// Load the texture with the stb_image helper
+	// Bind the first texture unit
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, texture1);
+
+	// Flip the image since OpenGL expects 0.0 to be on the bottom of the screen
+	stbi_set_flip_vertically_on_load(true);
+
+	// Load the textures with the stb_image helper
 	int width, height, nrChannels;
-	unsigned char* data = stbi_load("Rsc/container.jpg", &width, &height, &nrChannels, 0);
-
-	LOG('i', "TEXTURE LOADED INTO MEMORY...\n");
-
+	unsigned char* data;
+	data = stbi_load("Rsc/container.jpg", &width, &height, &nrChannels, 0);
 	if (data) {
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
 		glGenerateMipmap(GL_TEXTURE_2D);
-		LOG('i', "TEXTURE GENERATED...\n");
 	}
 	else {
 		LOG_ERR("FAILED TO LOAD TEXTURE DUMBASS\n");
 	}
 	stbi_image_free(data); // Free the image memory
+
+	// Bind the second texture unit
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, texture2);
+
+	data = stbi_load("Rsc/awesomeface.png", &width, &height, &nrChannels, 0);
+	if (data) {
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else {
+		LOG_ERR("FAILED TO LOAD TEXTURE DUMBASS\n");
+	}
+	stbi_image_free(data); // Free the image memory
+
+	// Set each texture uniform to the proper texture unit that it is associated with
+	currentShader.use();
+	currentShader.setInt("texture1", 0);
+	currentShader.setInt("texture2", 1);
+
+	LOG('i', "TEXTURES SUCCESSFULLY LOADED...");
 
 	while (!glfwWindowShouldClose(window)) {
 		// Input
@@ -147,7 +172,11 @@ int main() {
 		// fuckin with the uniform
 		float timeValue = (float)glfwGetTime();
 
-		glBindTexture(GL_TEXTURE_2D, texture);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, texture1);
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, texture2);
+
 		glBindVertexArray(vao);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
