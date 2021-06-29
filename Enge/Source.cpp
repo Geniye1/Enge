@@ -1,6 +1,10 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 #include "Logger/Logger.h"
 #include "Shaders/Shader.h"
 
@@ -159,6 +163,10 @@ int main() {
 
 	LOG('i', "TEXTURES SUCCESSFULLY LOADED...");
 
+	// MATRIX FUCKERY
+
+	
+
 	while (!glfwWindowShouldClose(window)) {
 		// Input
 		processInput(window);
@@ -171,6 +179,18 @@ int main() {
 
 		// fuckin with the uniform
 		float timeValue = (float)glfwGetTime();
+
+		// Identity matrix
+		glm::mat4 trans = glm::mat4(1.0f);
+		// Create a translational matrix that moves the vector to the bottom right of the screen
+		trans = glm::translate(trans, glm::vec3(0.5f, -0.5f, 0.0f));
+		// Create a rotational matrix that rotates a vector 90 degrees clockwise around the z axis
+		trans = glm::rotate(trans, timeValue, glm::vec3(0.0, 0.0, 1.0));
+
+		unsigned int transformLoc = glGetUniformLocation(currentShader.ID, "transform");
+		// Send the matrix to the vertex shader (glm::value_ptr() is required since glm stores the matrix in
+		// a way that will make OpenGL shit itself so this function converts it)
+		glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
 
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, texture1);
