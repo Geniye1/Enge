@@ -13,6 +13,7 @@
 #include "../ThirdPartyHelpers/stb_image.h"
 
 #include "../Application.h"
+#include "../Input/Input.h"
 
 namespace Enge {
 

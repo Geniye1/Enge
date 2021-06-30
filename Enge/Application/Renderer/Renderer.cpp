@@ -147,8 +147,8 @@ namespace Enge {
 
 
 		while (!glfwWindowShouldClose(&currentWindow)) {
-			// Input
-			//processInput(window);
+			
+			Input::processInput(&currentWindow);
 
 			// Rendering
 			glClearColor(0.22f, 0.22f, 0.22f, 1.0f);

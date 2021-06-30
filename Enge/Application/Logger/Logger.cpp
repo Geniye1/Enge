@@ -21,8 +21,8 @@ bool Logger::gl_startGlLog() {
 	time_t now = time(NULL);
 	char date[26];
 	ctime_s(date, sizeof(date), &now);
-	fprintf(logFile, "GL_LOG_FILE ### local time %s\n", date); // Print to Log file
-	fprintf(stdout, "GL_LOG_FILE ### local time %s\n", date);  // Print to stdout
+	fprintf(logFile, "GL_LOG_FILE %s ### local time %s\n", GL_LOG_FILE, date); // Print to Log file
+	fprintf(stdout, "GL_LOG_FILE %s ### local time %s\n", GL_LOG_FILE, date);  // Print to stdout
 	fclose(logFile);
 	
 	return true;

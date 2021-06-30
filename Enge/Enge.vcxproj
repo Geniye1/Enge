@@ -156,6 +156,9 @@
     <ClCompile Include="Application\Enge_PCH.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Application\Input\Input.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="Application\Logger\Logger.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
@@ -173,6 +176,7 @@
   <ItemGroup>
     <ClInclude Include="Application\Application.h" />
     <ClInclude Include="Application\Enge_PCH.h" />
+    <ClInclude Include="Application\Input\Input.h" />
     <ClInclude Include="Application\Logger\Logger.h" />
     <ClInclude Include="Application\Renderer\Renderer.h" />
     <ClInclude Include="Application\Shaders\Shader.h" />

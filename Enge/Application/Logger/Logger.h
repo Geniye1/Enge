@@ -7,7 +7,7 @@
 
 #include <time.h>
 
-#define GL_LOG_FILE        "Enge_Main.log"
+#define GL_LOG_FILE        "Application/Logger/Enge_Main.log"
 
 #define ENGE_INFO	       LogLevel::INFO
 #define ENGE_WARNING       LogLevel::WARNING
