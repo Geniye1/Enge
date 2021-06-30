@@ -27,7 +27,7 @@ bool Logger::gl_startGlLog() {
 	return true;
 }
 
-bool Logger::gl_log(char flag, const char* message, ...) {
+bool Logger::gl_log(LogLevel flag, const char* message, ...) {
 	
 	// Pointer used to access any extra parameters that are passed in the ...
 	va_list argListPtr;
@@ -46,17 +46,17 @@ bool Logger::gl_log(char flag, const char* message, ...) {
 	ctime_s(date, sizeof(date), &now);
 
 	switch (flag) {
-	case 'i':
+	case LogLevel::INFO:
 		CONSOLE_COLOR(10);
 		fprintf(logFile, "LOG INFO %s ### ", date);
 		fprintf(stdout, "LOG INFO %s ### ", date);
 		break;
-	case 'w':
+	case LogLevel::WARNING:
 		CONSOLE_COLOR(14);
 		fprintf(logFile, "LOG WARNING %s ### ", date);
 		fprintf(stdout, "LOG WARNING %s ### ", date);
 		break;
-	case 'd':
+	case LogLevel::DEBUG:
 		CONSOLE_COLOR(13);
 		fprintf(logFile, "LOG DEBUG %s ### ", date);
 		fprintf(stdout, "LOG DEBUG %s ### ", date);
@@ -64,7 +64,7 @@ bool Logger::gl_log(char flag, const char* message, ...) {
 	default:
 		CONSOLE_COLOR(12);
 		fprintf(stderr,
-			"ERROR: Logger GL_LOG_FILE %s was supplied an unknown flag, fix it you buffon, huh yeah big dumb man dumb dumb man yeah? yeah? big stupid very cringe",
+			"ERROR: Logger GL_LOG_FILE %s was supplied an unknown flag, fix it you buffoon, huh yeah big dumb man dumb dumb man yeah? yeah? big stupid very cringe",
 			GL_LOG_FILE);
 		return false;
 	}

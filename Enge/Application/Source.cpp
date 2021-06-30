@@ -8,10 +8,13 @@
 #include "Logger/Logger.h"
 #include "Shaders/Shader.h"
 
-#include "ThirdPartHelpers/stb_image.h"
+#include "ThirdPartyHelpers/stb_image.h"
 
 #include <iostream>
 #include <assert.h>
+
+#define WINDOW_WIDTH 1280.0f
+#define WINDOW_HEIGHT 720.0f
 
 void glfw_error_callback(int error, const char* description);
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -85,12 +88,12 @@ int main() {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	LOG('i', "STARTING CORE GLFW V%s\n\n", glfwGetVersionString());
+	LOG(ENGE_INFO, "STARTING CORE GLFW V%s\n\n", glfwGetVersionString());
 
 	// IF ON MAC OS X
 	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
-	GLFWwindow* window = glfwCreateWindow(800, 600, "I can't type anymore", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "I can't type anymore", NULL, NULL);
 	if (window == NULL) {
 		LOG_ERR("ERROR::GLFW_WINDOW ### Failed to create GLFW window lmao imagine sucking\n");
 		glfwTerminate();
@@ -98,16 +101,16 @@ int main() {
 	}
 	glfwMakeContextCurrent(window);
 
-	LOG('w', "GLFW WINDOW SUCCESSFULLY CREATED...\n");
+	LOG(ENGE_WARNING, "GLFW WINDOW SUCCESSFULLY CREATED...\n");
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
 		LOG_ERR("ERROR:::GLAD ### Failed to initialize GLAD god damn\n");
 		return -1;
 	}
 
-	LOG('i', "GLAD SUCCESSFULLY LOADED...\n");
+	LOG(ENGE_INFO, "GLAD SUCCESSFULLY LOADED...\n");
 
-	glViewport(0, 0, 800, 600); // (0,0) is the lower left corner, (800,600) is the top right corner
+	glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT); // (0,0) is the lower left corner, (800,600) is the top right corner
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback); // Callback function so when the window is resized the render viewport is also resized
 
 	// Enable depth testing 
@@ -151,7 +154,7 @@ int main() {
 	// UNCOMMENT FOR WIREFRAME MODE
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-	LOG('d', "ENTERING RENDER LOOP...\n");
+	LOG(ENGE_DEBUG, "ENTERING RENDER LOOP...\n");
 
 	Shader currentShader("Shaders/Base Shaders/BaseVertexShader.glsl", "Shaders/Base Shaders/BaseFragmentShader.glsl");
 
@@ -165,7 +168,7 @@ int main() {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR); // Interpolated mipmaps
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);  // Interpolated texits
 
-	LOG('i', "TEXTURE SETTINGS SET...\n");
+	LOG(ENGE_INFO, "TEXTURE SETTINGS SET...\n");
 
 	// Generate textures
 	unsigned int texture1, texture2;
@@ -182,7 +185,7 @@ int main() {
 	// Load the textures with the stb_image helper
 	int width, height, nrChannels;
 	unsigned char* data;
-	data = stbi_load("Rsc/container.jpg", &width, &height, &nrChannels, 0);
+	data = stbi_load("Rsc/rocks.jpg", &width, &height, &nrChannels, 0);
 	if (data) {
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
 		glGenerateMipmap(GL_TEXTURE_2D);
@@ -211,7 +214,7 @@ int main() {
 	currentShader.setInt("texture1", 0);
 	currentShader.setInt("texture2", 1);
 
-	LOG('i', "TEXTURES SUCCESSFULLY LOADED...");
+	LOG(ENGE_INFO, "TEXTURES SUCCESSFULLY LOADED...");
 
 	
 
@@ -220,7 +223,7 @@ int main() {
 		processInput(window);
 
 		// Rendering
-		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+		glClearColor(0.18f, 0.77f, 0.89f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		currentShader.use();
@@ -240,15 +243,16 @@ int main() {
 
 		// Model matrix to convert local space to world space
 		glm::mat4 modelMatrix = glm::mat4(1.0f);
-		modelMatrix = glm::rotate(modelMatrix, timeValue * glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 1.0f));
+		modelMatrix = glm::rotate(modelMatrix, timeValue / 2 * glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 1.0f));
 
 		// View matrix to convert world space into view space (camera)
 		glm::mat4 viewMatrix = glm::mat4(1.0f);
 		viewMatrix = glm::translate(viewMatrix, glm::vec3(0.0f, 0.0f, -3.0f));
 
 		// Projection matrix to convert view space to clip space (perspective)
+		float fovChange = (sin(timeValue) / 2.0f + 0.5f) * 20;
 		glm::mat4 projectionMatrix = glm::mat4(1.0f);
-		projectionMatrix = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+		projectionMatrix = glm::perspective(glm::radians(45.0f + fovChange), WINDOW_WIDTH / WINDOW_HEIGHT, 0.1f, 100.0f);
 
 		// Send matrices to shader
 		currentShader.setMatrix4fv("model", 1, GL_FALSE, glm::value_ptr(modelMatrix));

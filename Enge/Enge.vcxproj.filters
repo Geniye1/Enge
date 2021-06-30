@@ -15,38 +15,38 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source.cpp">
+    <ClCompile Include="Application\Source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\GLAD\First Gen\src\glad.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Logger\Logger.cpp">
+    <ClCompile Include="Application\Logger\Logger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Shaders\Shader.cpp">
+    <ClCompile Include="Application\Shaders\Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ThirdPartHelpers\stb_image.cpp">
+    <ClCompile Include="Application\ThirdPartyHelpers\stb_image.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Logger\Logger.h">
+    <ClInclude Include="Application\Logger\Logger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Shaders\Shader.h">
+    <ClInclude Include="Application\Shaders\Shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ThirdPartHelpers\stb_image.h">
+    <ClInclude Include="Application\ThirdPartyHelpers\stb_image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\Base Shaders\BaseVertexShader.glsl" />
-    <None Include="Shaders\Base Shaders\BaseFragmentShader.glsl" />
+    <None Include="Application\Shaders\Base Shaders\BaseVertexShader.glsl" />
+    <None Include="Application\Shaders\Base Shaders\BaseFragmentShader.glsl" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Logger\Enge_Main.log" />
+    <Text Include="Application\Logger\Enge_Main.log" />
   </ItemGroup>
 </Project>

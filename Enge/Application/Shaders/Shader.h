@@ -24,7 +24,8 @@ public:
 	// Constructor read and builds shader
 	Shader(const char* vertexPath, const char* fragPath);
 	// Use & activate the shader
-	void use();
+	void use() const;
+
 	// Utility functions
 	void setBool(const std::string &name, bool value) const;
 	void setInt(const std::string &name, int value) const;
