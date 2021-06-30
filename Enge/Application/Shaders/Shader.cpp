@@ -77,7 +77,7 @@ Shader::Shader(const char* vertexPath, const char* fragPath) {
 		LOG_ERR("ERROR::SHADER::PROGRAM::LINKING_FAILED => %c", infoLog);
 	}
 	else {
-		LOG('i', "SHADERS SUCCESSFULLY LINKED...\n");
+		LOG(ENGE_INFO, "SHADERS SUCCESSFULLY LINKED...\n");
 	}
 
 	// Clean up

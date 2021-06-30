@@ -2,7 +2,7 @@
 
 // Because static members exist outside the class, you have to initialize the variable
 // here and not in the function
-HANDLE Logger::consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+void* Logger::consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
 
 bool Logger::gl_startGlLog() {
 	
@@ -16,6 +16,7 @@ bool Logger::gl_startGlLog() {
 	}
 
 	CONSOLE_COLOR(15);
+	
 
 	time_t now = time(NULL);
 	char date[26];
@@ -107,6 +108,6 @@ bool Logger::gl_log_err(const char* message, ...) {
 	vfprintf(stderr, message, argListPtr); // Print out the stderr as well
 	va_end(argListPtr);
 	fclose(logFile);
-	free(date);
+
 	return true;
 }

@@ -1,3 +1,5 @@
+#include "Enge_PCH.h"
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -5,13 +7,9 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "Logger/Logger.h"
 #include "Shaders/Shader.h"
 
 #include "ThirdPartyHelpers/stb_image.h"
-
-#include <iostream>
-#include <assert.h>
 
 #define WINDOW_WIDTH 1280.0f
 #define WINDOW_HEIGHT 720.0f
@@ -79,7 +77,7 @@ float vertices[] = {
 int main() {
 	
 	// Assertion to ensure the log can be opened, if fails the program will terminate
-	assert(LOG_START());
+	LOG_START();
 
 	glfwSetErrorCallback(glfw_error_callback);
 
@@ -93,7 +91,7 @@ int main() {
 	// IF ON MAC OS X
 	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
-	GLFWwindow* window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "I can't type anymore", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Enge", NULL, NULL);
 	if (window == NULL) {
 		LOG_ERR("ERROR::GLFW_WINDOW ### Failed to create GLFW window lmao imagine sucking\n");
 		glfwTerminate();
@@ -156,7 +154,7 @@ int main() {
 
 	LOG(ENGE_DEBUG, "ENTERING RENDER LOOP...\n");
 
-	Shader currentShader("Shaders/Base Shaders/BaseVertexShader.glsl", "Shaders/Base Shaders/BaseFragmentShader.glsl");
+	Shader currentShader("Application/Shaders/Base Shaders/BaseVertexShader.glsl", "Application/Shaders/Base Shaders/BaseFragmentShader.glsl");
 
 	// Texturing
 
@@ -185,7 +183,7 @@ int main() {
 	// Load the textures with the stb_image helper
 	int width, height, nrChannels;
 	unsigned char* data;
-	data = stbi_load("Rsc/rocks.jpg", &width, &height, &nrChannels, 0);
+	data = stbi_load("Application/Rsc/rocks.jpg", &width, &height, &nrChannels, 0);
 	if (data) {
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
 		glGenerateMipmap(GL_TEXTURE_2D);
@@ -199,7 +197,7 @@ int main() {
 	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, texture2);
 
-	data = stbi_load("Rsc/awesomeface.png", &width, &height, &nrChannels, 0);
+	data = stbi_load("Application/Rsc/awesomeface.png", &width, &height, &nrChannels, 0);
 	if (data) {
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 		glGenerateMipmap(GL_TEXTURE_2D);

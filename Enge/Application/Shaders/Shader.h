@@ -11,10 +11,7 @@
 
 #include "../Logger/Logger.h"
 
-#include <string>
-#include <fstream>
-#include <sstream>
-#include <iostream>
+#include "../Enge_PCH.h"
 
 class Shader {
 public:
