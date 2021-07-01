@@ -1,5 +1,8 @@
 #include "Application.h"
 
+#include "Testing/TestLayer.h"
+
+#include "Input/Input.h"
 #include "Renderer/Renderer.h"
 
 namespace Enge {
@@ -46,16 +49,27 @@ namespace Enge {
 		glfwSetFramebufferSizeCallback(window, Application::ApplicationResizeCallback); 
 		glfwSetErrorCallback(Application::ApplicationErrorCallback);
 
+		m_layerStack.PushLayer(new TestLayer());
+
 		Renderer::RendererInit(*window);
-		// Initalize Engine input class n shit
 
 		return EXIT_SUCCESS;
 	}
 
 	void Application::ApplicationRun() {
-		while (glfwWindowShouldClose(Application::window)) {
-			// process input
-			// call the renderer
+		while (!glfwWindowShouldClose(window)) {
+
+			Input::processInput(window);
+
+			// Render each layer
+			for (Layer* layer : m_layerStack) {
+				if (layer->getLayerState()) {
+					layer->OnUpdate();
+				}
+			}
+
+			glfwSwapBuffers(window);
+			glfwPollEvents();
 		}
 	}
 

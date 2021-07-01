@@ -18,9 +18,9 @@ public:
 	// Program ID
 	unsigned int ID;
 
-	// Constructor read and builds shader
-	Shader(const char* vertexPath, const char* fragPath);
-	// Use & activate the shader
+	Shader() = default;
+	
+	void loadShaderProgram(const char* vertexPath, const char* fragPath);
 	void use() const;
 
 	// Utility functions

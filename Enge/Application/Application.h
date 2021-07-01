@@ -7,6 +7,8 @@
 
 #include <assert.h>
 
+#include "Layers/LayerStack.h"
+
 #define WINDOW_WIDTH  1280
 #define WINDOW_HEIGHT 720
 
@@ -14,6 +16,8 @@ namespace Enge {
 	
 	class Application {
 	public:
+		Application() = default;
+
 		int ApplicationInit();
 		void ApplicationRun();
 		void ApplicationEnd();
@@ -26,7 +30,9 @@ namespace Enge {
 	private:
 		GLFWwindow* window;
 
-		bool shouldClose;
+		LayerStack m_layerStack;
+
+		bool shouldClose = false;
 	};
 
 }

@@ -1,7 +1,6 @@
 #include "Shader.h"
 
-Shader::Shader(const char* vertexPath, const char* fragPath) {
-	
+void Shader::loadShaderProgram(const char* vertexPath, const char* fragPath) {
 	// Get the source code
 	std::string vertexCode;
 	std::string fragmentCode;
@@ -20,7 +19,7 @@ Shader::Shader(const char* vertexPath, const char* fragPath) {
 		// Read the buffer into the streams
 		vShaderStream << vShaderFile.rdbuf();
 		fShaderStream << fShaderFile.rdbuf();
-
+		
 		// Close the files
 		vShaderFile.close();
 		fShaderFile.close();
@@ -31,7 +30,7 @@ Shader::Shader(const char* vertexPath, const char* fragPath) {
 	catch (std::ifstream::failure e) {
 		LOG_ERR("ERROR::SHADER::FILE_COULD_NOT_BE_READ");
 	}
-	
+
 	// Convert into the needed const char*
 	const char* vShaderCode = vertexCode.c_str();
 	const char* fShaderCode = fragmentCode.c_str();
