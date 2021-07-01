@@ -181,6 +181,9 @@
     <ClCompile Include="Application\ThirdPartyHelpers\stb_image.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Application\Input\PerspectiveCameraController.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application\Application.h" />
@@ -193,6 +196,7 @@
     <ClInclude Include="Application\Shaders\Shader.h" />
     <ClInclude Include="Application\Testing\TestLayer.h" />
     <ClInclude Include="Application\ThirdPartyHelpers\stb_image.h" />
+    <ClInclude Include="Application\Input\PerspectiveCameraController.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Application\Shaders\Base Shaders\BaseFragmentShader.glsl" />

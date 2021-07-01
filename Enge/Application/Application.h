@@ -33,6 +33,9 @@ namespace Enge {
 		LayerStack m_layerStack;
 
 		bool shouldClose = false;
+
+		float deltaTime = 0.0f;
+		float lastFrame = 0.0f;
 	};
 
 }

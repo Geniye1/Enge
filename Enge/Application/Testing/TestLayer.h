@@ -14,17 +14,18 @@
 #include "../Layers/Layer.h"
 #include "../Shaders/Shader.h"
 #include "../Application.h"
+#include "../Input/PerspectiveCameraController.h"
 
 namespace Enge {
 
 	class TestLayer : public Layer {
 	public:
-		TestLayer();
+		TestLayer(PerspectiveCameraController* perspectiveCameraCont);
 		virtual ~TestLayer() = default;
 
 		virtual void OnStart() override;
 		virtual void OnEnd() override;
-		virtual void OnUpdate() override;
+		virtual void OnUpdate(float ft) override;
 
 	private:
 		std::vector<float> vertices;
@@ -37,6 +38,8 @@ namespace Enge {
 		GLuint GL_Texture2 = 0;
 		
 		Shader* currentShader = new Shader();
+
+		PerspectiveCameraController* m_perspectiveCameraCont;
 	};
 
 }

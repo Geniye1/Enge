@@ -51,6 +51,9 @@
     <ClCompile Include="Application\Testing\TestLayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Application\Input\PerspectiveCameraController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application\Logger\Logger.h">
@@ -81,6 +84,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Application\Testing\TestLayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Input\PerspectiveCameraController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

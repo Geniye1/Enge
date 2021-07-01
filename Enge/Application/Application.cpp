@@ -3,6 +3,7 @@
 #include "Testing/TestLayer.h"
 
 #include "Input/Input.h"
+#include "Input/PerspectiveCameraController.h"
 #include "Renderer/Renderer.h"
 
 namespace Enge {
@@ -49,7 +50,11 @@ namespace Enge {
 		glfwSetFramebufferSizeCallback(window, Application::ApplicationResizeCallback); 
 		glfwSetErrorCallback(Application::ApplicationErrorCallback);
 
-		m_layerStack.PushLayer(new TestLayer());
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
+		PerspectiveCameraController* perspectiveCameraCont = new PerspectiveCameraController(window);
+
+		m_layerStack.PushLayer(new TestLayer(perspectiveCameraCont));
 
 		Renderer::RendererInit(*window);
 
@@ -59,12 +64,16 @@ namespace Enge {
 	void Application::ApplicationRun() {
 		while (!glfwWindowShouldClose(window)) {
 
+			float currentFrame = glfwGetTime();
+			deltaTime = currentFrame - lastFrame;
+			lastFrame = currentFrame;
+
 			Input::processInput(window);
 
 			// Render each layer
 			for (Layer* layer : m_layerStack) {
 				if (layer->getLayerState()) {
-					layer->OnUpdate();
+					layer->OnUpdate(deltaTime);
 				}
 			}
 

@@ -3,7 +3,7 @@
 namespace Enge {
 
 	Layer::Layer(const std::string& name)
-		: layerName(name), isEnabled(true)
+		: layerName(name)
 	{
 	}
 

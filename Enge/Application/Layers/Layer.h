@@ -12,7 +12,7 @@ namespace Enge {
 
 		virtual void OnStart() {}
 		virtual void OnEnd() {}
-		virtual void OnUpdate() {}
+		virtual void OnUpdate(float dt) {}
 		
 		void enableLayer() { isEnabled = true; }
 		void disableLayer() { isEnabled = false; }
@@ -23,7 +23,7 @@ namespace Enge {
 	protected:
 		std::string layerName;
 
-		bool isEnabled = false;
+		bool isEnabled = true;
 	};
 
 }

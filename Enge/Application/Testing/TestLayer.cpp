@@ -2,8 +2,8 @@
 
 namespace Enge {
 
-	TestLayer::TestLayer()
-		: Layer("TestLayer")
+	TestLayer::TestLayer(PerspectiveCameraController* perspectiveCameraCont)
+		: Layer("TestLayer"), m_perspectiveCameraCont(perspectiveCameraCont)
 	{
 
 	}
@@ -153,7 +153,8 @@ namespace Enge {
 
 	}
 
-	void TestLayer::OnUpdate() {
+	void TestLayer::OnUpdate(float dt) {
+
 		// Rendering
 		glClearColor(0.22f, 0.22f, 0.22f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -173,16 +174,15 @@ namespace Enge {
 
 		// Model matrix to convert local space to world space
 		glm::mat4 modelMatrix = glm::mat4(1.0f);
-		modelMatrix = glm::rotate(modelMatrix, timeValue / 2 * glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 1.0f));
+		modelMatrix = glm::rotate(modelMatrix, timeValue * glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 1.0f));
 
 		// View matrix to convert world space into view space (camera)
-		glm::mat4 viewMatrix = glm::mat4(1.0f);
-		viewMatrix = glm::translate(viewMatrix, glm::vec3(0.0f, 0.0f, -3.0f));
-
+		m_perspectiveCameraCont->updateMouseLook();
+		glm::mat4 viewMatrix = m_perspectiveCameraCont->updateCameraPosition(dt);
+		
 		// Projection matrix to convert view space to clip space (perspective)
-		float fovChange = (sin(timeValue) / 2.0f + 0.5f) * 20;
 		glm::mat4 projectionMatrix = glm::mat4(1.0f);
-		projectionMatrix = glm::perspective(glm::radians(45.0f + fovChange), (GLfloat)WINDOW_WIDTH / (GLfloat)WINDOW_HEIGHT, 0.1f, 100.0f);
+		projectionMatrix = glm::perspective(glm::radians(45.0f), (GLfloat)WINDOW_WIDTH / (GLfloat)WINDOW_HEIGHT, 0.1f, 100.0f);
 
 		// Send matrices to shader
 		currentShader->setMatrix4fv("model", 1, GL_FALSE, glm::value_ptr(modelMatrix));
