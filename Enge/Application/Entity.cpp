@@ -49,7 +49,7 @@ namespace Enge {
 		currentShader->setMatrix4fv("projection", 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 
 		glBindVertexArray(GL_VAO);
-		glDrawArrays(GL_TRIANGLES, 0, m_vertices.size());
+		glDrawArrays(GL_TRIANGLES, 0, (GLsizei)m_vertices.size());
 		glBindVertexArray(0);
 	}
 }

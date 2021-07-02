@@ -15,7 +15,7 @@ namespace Enge {
 		LOG_START();
 
 		// Singleton pattern
-		assert(!s_AppInstance, LOG_ERR("ERROR::APPLICATION::DUMBASS::APPLICATION_ALREADY_RUNNING\n"));
+		assert(!s_AppInstance);
 		s_AppInstance = this;
 		shouldClose = false;
 
@@ -64,7 +64,7 @@ namespace Enge {
 	void Application::ApplicationRun() {
 		while (!glfwWindowShouldClose(window)) {
 
-			float currentFrame = glfwGetTime();
+			double currentFrame = glfwGetTime();
 			deltaTime = currentFrame - lastFrame;
 			lastFrame = currentFrame;
 

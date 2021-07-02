@@ -21,6 +21,12 @@ namespace Enge {
 		if (glfwGetKey(m_window, GLFW_KEY_D) == GLFW_PRESS) {
 			m_camera.MoveRight(dt);
 		}
+		if (glfwGetKey(m_window, GLFW_KEY_Q) == GLFW_PRESS) {
+			m_camera.MoveUp(dt);
+		}
+		if (glfwGetKey(m_window, GLFW_KEY_E) == GLFW_PRESS) {
+			m_camera.MoveDown(dt);
+		}
 
 		if (glfwGetKey(m_window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
 			m_camera.StartSprinting();
@@ -41,8 +47,8 @@ namespace Enge {
 			firstMouse = false;
 		}
 
-		float xOffset = xPos - lastX;
-		float yOffset = lastY - yPos;
+		double xOffset = xPos - lastX;
+		double yOffset = lastY - yPos;
 		lastX = xPos;
 		lastY = yPos;
 

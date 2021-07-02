@@ -22,6 +22,16 @@ namespace Enge {
 
 		m_cameraPos += glm::normalize(glm::cross(m_cameraFront, m_cameraUp)) * adjustedCameraSpeed;
 	}
+	void Camera::MoveUp(float dt) {
+		float adjustedCameraSpeed = m_currentSpeed * rfMultiplier * dt;
+
+		m_cameraPos += m_cameraUp * adjustedCameraSpeed;
+	}
+	void Camera::MoveDown(float dt) {
+		float adjustedCameraSpeed = m_currentSpeed * rfMultiplier * dt;
+
+		m_cameraPos -= m_cameraUp * adjustedCameraSpeed;
+	}
 
 	void Camera::StartSprinting() {
 		m_currentSpeed = m_sprintSpeed;
