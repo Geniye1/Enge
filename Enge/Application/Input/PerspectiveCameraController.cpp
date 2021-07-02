@@ -4,31 +4,25 @@ namespace Enge {
 
 	PerspectiveCameraController::PerspectiveCameraController(GLFWwindow* window)
 		: m_window(window)
-	{
-		
+	{	
 	}
 
 	glm::mat4 PerspectiveCameraController::updateCameraPosition(float dt) {
-		
-		float adjustedCameraSpeed = cameraSpeed * dt;
 
 		if (glfwGetKey(m_window, GLFW_KEY_W) == GLFW_PRESS) {
-			cameraPos += adjustedCameraSpeed * cameraFront;
+			m_camera.MoveForward(dt);
 		}
 		if (glfwGetKey(m_window, GLFW_KEY_S) == GLFW_PRESS) {
-			cameraPos -= adjustedCameraSpeed * cameraFront;
+			m_camera.MoveBackward(dt);
 		}
 		if (glfwGetKey(m_window, GLFW_KEY_A) == GLFW_PRESS) {
-			cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * adjustedCameraSpeed;
+			m_camera.MoveLeft(dt);
 		}
 		if (glfwGetKey(m_window, GLFW_KEY_D) == GLFW_PRESS) {
-			cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * adjustedCameraSpeed;
+			m_camera.MoveRight(dt);
 		}
-		
-		glm::mat4 viewMatrix = glm::mat4(1.0f);
-		viewMatrix = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 	
-		return viewMatrix;
+		return m_camera.GetLookAt();
 	}
 
 	void PerspectiveCameraController::updateMouseLook() {
@@ -62,7 +56,7 @@ namespace Enge {
 		mouseDirection.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
 		mouseDirection.y = sin(glm::radians(pitch));
 		mouseDirection.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-		cameraFront = glm::normalize(mouseDirection);
+		m_camera.m_cameraFront = glm::normalize(mouseDirection);
 	}
 
 }

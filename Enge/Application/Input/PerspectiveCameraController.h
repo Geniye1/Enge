@@ -4,9 +4,9 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
 
 #include "../Application.h"
+#include "../Input/Camera.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -22,6 +22,8 @@ namespace Enge {
 
 	private:
 		GLFWwindow* m_window;
+
+		Camera m_camera;
 
 		// Constants
 		const float cameraSpeed = 2.5f;
