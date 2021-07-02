@@ -69,6 +69,9 @@
     <ClCompile Include="Application\Testing\TestEntity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Application\Renderer\FrameBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application\Logger\Logger.h">
@@ -119,10 +122,15 @@
     <ClInclude Include="Application\Testing\TestEntity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Application\Renderer\FrameBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Application\Shaders\Base Shaders\BaseVertexShader.glsl" />
     <None Include="Application\Shaders\Base Shaders\BaseFragmentShader.glsl" />
+    <None Include="Application\Shaders\Base Shaders\FrameBufferDrawVertexShader.glsl" />
+    <None Include="Application\Shaders\Base Shaders\FrameBufferDrawFragmentShader.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Application\Logger\Enge_Main.log" />

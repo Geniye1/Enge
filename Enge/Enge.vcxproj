@@ -177,6 +177,9 @@
     <ClCompile Include="Application\Logger\Logger.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Application\Renderer\FrameBuffer.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="Application\Renderer\Renderer.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
@@ -210,6 +213,7 @@
     <ClInclude Include="Application\Layers\Layer.h" />
     <ClInclude Include="Application\Layers\LayerStack.h" />
     <ClInclude Include="Application\Logger\Logger.h" />
+    <ClInclude Include="Application\Renderer\FrameBuffer.h" />
     <ClInclude Include="Application\Renderer\Renderer.h" />
     <ClInclude Include="Application\Renderer\Texture.h" />
     <ClInclude Include="Application\Shaders\Shader.h" />
@@ -221,6 +225,8 @@
   <ItemGroup>
     <None Include="Application\Shaders\Base Shaders\BaseFragmentShader.glsl" />
     <None Include="Application\Shaders\Base Shaders\BaseVertexShader.glsl" />
+    <None Include="Application\Shaders\Base Shaders\FrameBufferDrawFragmentShader.glsl" />
+    <None Include="Application\Shaders\Base Shaders\FrameBufferDrawVertexShader.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Application\Logger\Enge_Main.log" />

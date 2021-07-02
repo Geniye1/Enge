@@ -13,6 +13,7 @@
 
 #include "../Layers/Layer.h"
 #include "../Shaders/Shader.h"
+#include "../Renderer/FrameBuffer.h"
 #include "../EntityStack.h"
 #include "../Testing/TestEntity.h"
 #include "../Application.h"
@@ -32,6 +33,8 @@ namespace Enge {
 		void CalculateFPS();
 
 	private:
+		FrameBuffer* frameBuffer = new FrameBuffer();
+
 		EntityStack m_EntityStack;
 
 		std::vector<float> vertices;

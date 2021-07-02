@@ -61,6 +61,8 @@ namespace Enge {
 			entity->OnStart();
 		}
 
+		frameBuffer->CreateFramebuffer();
+
 		previousTime = glfwGetTime();
 	}
 
@@ -72,9 +74,18 @@ namespace Enge {
 
 		CalculateFPS();
 
+		/*
+			Render order:
+			1. Framebuffer.FirstPass();
+			2. Render and update each entity in m_EntityStack
+			3. FrameBuffer.SecondPass();
+		*/
+
 		// Background color && Depth bit clearing
-		glClearColor(0.22f, 0.22f, 0.22f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		//glClearColor(0.22f, 0.22f, 0.22f, 1.0f);
+		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		frameBuffer->FirstPass();
 
 		// View matrix to pass to each Entity for rendering
 		m_perspectiveCameraCont->updateMouseLook();
@@ -84,6 +95,8 @@ namespace Enge {
 			entity->OnTick(dt);
 			entity->Render(viewMatrix);
 		}
+
+		frameBuffer->SecondPass();
 	}
 
 	void TestLayer::CalculateFPS() {
