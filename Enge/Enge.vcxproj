@@ -156,6 +156,12 @@
     <ClCompile Include="Application\Enge_PCH.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Application\Entity.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Application\EntityStack.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="Application\Input\Camera.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
@@ -174,10 +180,16 @@
     <ClCompile Include="Application\Renderer\Renderer.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Application\Renderer\Texture.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="Application\Shaders\Shader.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Application\Source.cpp" />
+    <ClCompile Include="Application\Testing\TestEntity.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="Application\Testing\TestLayer.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
@@ -191,13 +203,17 @@
   <ItemGroup>
     <ClInclude Include="Application\Application.h" />
     <ClInclude Include="Application\Enge_PCH.h" />
+    <ClInclude Include="Application\Entity.h" />
+    <ClInclude Include="Application\EntityStack.h" />
     <ClInclude Include="Application\Input\Camera.h" />
     <ClInclude Include="Application\Input\Input.h" />
     <ClInclude Include="Application\Layers\Layer.h" />
     <ClInclude Include="Application\Layers\LayerStack.h" />
     <ClInclude Include="Application\Logger\Logger.h" />
     <ClInclude Include="Application\Renderer\Renderer.h" />
+    <ClInclude Include="Application\Renderer\Texture.h" />
     <ClInclude Include="Application\Shaders\Shader.h" />
+    <ClInclude Include="Application\Testing\TestEntity.h" />
     <ClInclude Include="Application\Testing\TestLayer.h" />
     <ClInclude Include="Application\ThirdPartyHelpers\stb_image.h" />
     <ClInclude Include="Application\Input\PerspectiveCameraController.h" />

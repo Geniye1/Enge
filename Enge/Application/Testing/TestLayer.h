@@ -13,6 +13,8 @@
 
 #include "../Layers/Layer.h"
 #include "../Shaders/Shader.h"
+#include "../EntityStack.h"
+#include "../Testing/TestEntity.h"
 #include "../Application.h"
 #include "../Input/PerspectiveCameraController.h"
 
@@ -28,6 +30,8 @@ namespace Enge {
 		virtual void OnUpdate(float ft) override;
 
 	private:
+		EntityStack m_EntityStack;
+
 		std::vector<float> vertices;
 
 		GLuint GL_VBO = 0;
