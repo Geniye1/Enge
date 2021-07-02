@@ -17,13 +17,18 @@ namespace Enge {
 		void MoveLeft(float dt);
 		void MoveRight(float dt);
 
-		glm::mat4 GetLookAt();
+		void StartSprinting();
+		void StopSprinting();
 
-		float m_movementSpeed = 2.0f;
+		glm::mat4 GetLookAt();
 
 		glm::vec3 m_cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
 		glm::vec3 m_cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 		glm::vec3 m_cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+	private:
+		float m_currentSpeed = m_movementSpeed;
+		float m_movementSpeed = 2.0f;
+		float m_sprintSpeed = 6.0f;
 	};
 
 }

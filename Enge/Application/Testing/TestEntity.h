@@ -1,3 +1,8 @@
+/*
+	If all things go well, this file would actually be what gets generated when you create a new
+	object in the engine. 
+*/
+
 #pragma once
 
 #include "../Enge_PCH.h"

@@ -3,24 +3,32 @@
 namespace Enge {
 
 	void Camera::MoveForward(float dt) {
-		float adjustedCameraSpeed = m_movementSpeed * dt;
+		float adjustedCameraSpeed = m_currentSpeed * dt;
 
 		m_cameraPos += adjustedCameraSpeed * m_cameraFront;
 	}
 	void Camera::MoveBackward(float dt) {
-		float adjustedCameraSpeed = m_movementSpeed * dt;
+		float adjustedCameraSpeed = m_currentSpeed * dt;
 
 		m_cameraPos -= adjustedCameraSpeed * m_cameraFront;
 	}
 	void Camera::MoveLeft(float dt) {
-		float adjustedCameraSpeed = m_movementSpeed * dt;
+		float adjustedCameraSpeed = m_currentSpeed * dt;
 
 		m_cameraPos -= glm::normalize(glm::cross(m_cameraFront, m_cameraUp)) * adjustedCameraSpeed;
 	}
 	void Camera::MoveRight(float dt) {
-		float adjustedCameraSpeed = m_movementSpeed * dt;
+		float adjustedCameraSpeed = m_currentSpeed * dt;
 
 		m_cameraPos += glm::normalize(glm::cross(m_cameraFront, m_cameraUp)) * adjustedCameraSpeed;
+	}
+
+	void Camera::StartSprinting() {
+		m_currentSpeed = m_sprintSpeed;
+	}
+
+	void Camera::StopSprinting() {
+		m_currentSpeed = m_movementSpeed;
 	}
 
 	glm::mat4 Camera::GetLookAt() {

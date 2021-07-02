@@ -29,6 +29,8 @@ namespace Enge {
 		virtual void OnEnd() override;
 		virtual void OnUpdate(float ft) override;
 
+		void CalculateFPS();
+
 	private:
 		EntityStack m_EntityStack;
 

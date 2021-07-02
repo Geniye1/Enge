@@ -70,6 +70,23 @@ namespace Enge {
 
 	void TestLayer::OnUpdate(float dt) {
 
+		CalculateFPS();
+
+		// Background color && Depth bit clearing
+		glClearColor(0.22f, 0.22f, 0.22f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		// View matrix to pass to each Entity for rendering
+		m_perspectiveCameraCont->updateMouseLook();
+		glm::mat4 viewMatrix = m_perspectiveCameraCont->updateCameraPosition(dt);
+
+		for (Entity* entity : m_EntityStack) {
+			entity->OnTick(dt);
+			entity->Render(viewMatrix);
+		}
+	}
+
+	void TestLayer::CalculateFPS() {
 		double currentTime = glfwGetTime();
 		frameCount++;
 
@@ -78,19 +95,6 @@ namespace Enge {
 
 			frameCount = 0;
 			previousTime = currentTime;
-		}
-
-		// Rendering
-		glClearColor(0.22f, 0.22f, 0.22f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-		// View matrix to convert world space into view space (camera)
-		m_perspectiveCameraCont->updateMouseLook();
-		glm::mat4 viewMatrix = m_perspectiveCameraCont->updateCameraPosition(dt);
-
-		for (Entity* entity : m_EntityStack) {
-			entity->OnTick(dt);
-			entity->Render(viewMatrix);
 		}
 	}
 

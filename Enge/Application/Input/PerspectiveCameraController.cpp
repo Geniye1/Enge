@@ -21,6 +21,13 @@ namespace Enge {
 		if (glfwGetKey(m_window, GLFW_KEY_D) == GLFW_PRESS) {
 			m_camera.MoveRight(dt);
 		}
+
+		if (glfwGetKey(m_window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
+			m_camera.StartSprinting();
+		}
+		else {
+			m_camera.StopSprinting();
+		}
 	
 		return m_camera.GetLookAt();
 	}
