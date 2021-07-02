@@ -7,7 +7,7 @@ namespace Enge {
 	}
 
 	void TestEntity::OnTick(float dt) {
-		
+		this->transform.x += dt;
 	}
 
 	void TestEntity::OnEnd() {

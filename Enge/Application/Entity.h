@@ -14,6 +14,13 @@
 #include "Application.h"
 
 namespace Enge {
+
+	struct Transform {
+		float x;
+		float y;
+		float z;
+	};
+
 	class Entity {
 	public:
 		Entity(const std::string& name, std::vector<float> vertices);
@@ -41,6 +48,8 @@ namespace Enge {
 
 		GLuint GL_Texture1 = 0;
 		GLuint GL_Texture2 = 0;
+		
+		Transform transform = { 0.0f, 0.0f, 0.0f };
 
 		Shader* currentShader = new Shader();
 	};

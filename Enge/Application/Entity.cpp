@@ -37,7 +37,7 @@ namespace Enge {
 
 		// Model matrix to convert local space to world space
 		glm::mat4 modelMatrix = glm::mat4(1.0f);
-		modelMatrix = glm::rotate(modelMatrix, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 1.0f));
+		modelMatrix = glm::translate(modelMatrix, glm::vec3(transform.x, transform.y, transform.z));
 
 		// Projection matrix to convert view space to clip space (perspective)
 		glm::mat4 projectionMatrix = glm::mat4(1.0f);

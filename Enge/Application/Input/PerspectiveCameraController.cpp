@@ -6,7 +6,7 @@ namespace Enge {
 		: m_window(window)
 	{	
 	}
-
+	
 	glm::mat4 PerspectiveCameraController::updateCameraPosition(float dt) {
 
 		if (glfwGetKey(m_window, GLFW_KEY_W) == GLFW_PRESS) {
