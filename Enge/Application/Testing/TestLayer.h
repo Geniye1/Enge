@@ -34,16 +34,10 @@ namespace Enge {
 
 		std::vector<float> vertices;
 
-		GLuint GL_VBO = 0;
-		GLuint GL_VAO = 0;
-		GLuint GL_IBO = 0;
-
-		GLuint GL_Texture1 = 0;
-		GLuint GL_Texture2 = 0;
-		
-		Shader* currentShader = new Shader();
-
 		PerspectiveCameraController* m_perspectiveCameraCont;
+
+		double previousTime = 0;
+		int frameCount = 0;
 	};
 
 }

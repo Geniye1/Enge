@@ -60,6 +60,8 @@ namespace Enge {
 			entity->InitRender();
 			entity->OnStart();
 		}
+
+		previousTime = glfwGetTime();
 	}
 
 	void TestLayer::OnEnd() {
@@ -67,6 +69,16 @@ namespace Enge {
 	}
 
 	void TestLayer::OnUpdate(float dt) {
+
+		double currentTime = glfwGetTime();
+		frameCount++;
+
+		if (currentTime - previousTime >= 1.0) {
+			LOG(ENGE_DEBUG, "FPS: %i \n", frameCount);
+
+			frameCount = 0;
+			previousTime = currentTime;
+		}
 
 		// Rendering
 		glClearColor(0.22f, 0.22f, 0.22f, 1.0f);
