@@ -19,6 +19,7 @@ namespace Enge {
 
 		glm::mat4 updateCameraPosition(float dt);
 		void updateMouseLook();
+		void IsFirstMouse();
 
 	private:
 		GLFWwindow* m_window;

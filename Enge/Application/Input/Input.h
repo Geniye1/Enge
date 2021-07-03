@@ -10,6 +10,7 @@ namespace Enge {
 	class Input {
 	public:
 		static void processInput(GLFWwindow* window);
+		static bool GetMouseButtonDown(int mouseCode);
 	};
 
 }

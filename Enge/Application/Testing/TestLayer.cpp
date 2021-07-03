@@ -80,14 +80,34 @@ namespace Enge {
 		// Enable the framebuffer so that anything that gets rendered by the Entities is sent into the framebuffer
 		frameBuffer->FirstPass();
 
-		// View matrix to pass to each Entity for rendering
-		m_perspectiveCameraCont->updateMouseLook();
-		glm::mat4 viewMatrix = m_perspectiveCameraCont->updateCameraPosition(dt);
+		// View matrix to pass to each Entity for rendering (updated only when pressing LMousebutton
+		if (Input::GetMouseButtonDown(GLFW_MOUSE_BUTTON_1)) {
+			glfwSetInputMode(glfwGetCurrentContext(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+			
+			if (!isClickedIn) {
+				glfwSetCursorPos(glfwGetCurrentContext(), WINDOW_WIDTH/2, WINDOW_HEIGHT/2);
+				isClickedIn = true;
+			}
 
-		for (Entity* entity : m_EntityStack) {
-			entity->OnTick(dt);
-			entity->Render(viewMatrix);
+			m_perspectiveCameraCont->updateMouseLook();
+			viewMatrix = m_perspectiveCameraCont->updateCameraPosition(dt);
+
+			for (Entity* entity : m_EntityStack) {
+				entity->OnTick(dt);
+				entity->Render(viewMatrix);
+			}
 		}
+		else {
+			isClickedIn = false;
+			m_perspectiveCameraCont->IsFirstMouse();
+			glfwSetInputMode(glfwGetCurrentContext(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+
+			for (Entity* entity : m_EntityStack) {
+				entity->OnTick(dt);
+				entity->Render();
+			}
+		}
+		
 
 		// Disable the framebuffer so any rendering isn't sent into it and then render the stored framebuffer to the quad that fits
 		// to the screen

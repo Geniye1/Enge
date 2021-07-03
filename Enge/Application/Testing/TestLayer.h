@@ -11,6 +11,9 @@
 
 #include "../ThirdPartyHelpers/stb_image.h"
 
+// Put Input in the PCH when you implement all the events
+#include "../Input/Input.h"
+
 #include "../Layers/Layer.h"
 #include "../Shaders/Shader.h"
 #include "../Renderer/FrameBuffer.h"
@@ -40,6 +43,9 @@ namespace Enge {
 		EntityStack m_EntityStack;
 
 		std::vector<float> vertices;
+		glm::mat4 viewMatrix = glm::mat4(1.0f);
+
+		bool isClickedIn = false;
 
 		PerspectiveCameraController* m_perspectiveCameraCont;
 

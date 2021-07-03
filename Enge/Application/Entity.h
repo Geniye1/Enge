@@ -33,6 +33,7 @@ namespace Enge {
 
 		void InitRender();
 		void Render(glm::mat4 viewMatrix);
+		void Render();
 
 		const std::string& GetName() { return m_entityName; }
 	public:
@@ -50,6 +51,7 @@ namespace Enge {
 		GLuint GL_Texture2 = 0;
 		
 		Transform transform = { 0.0f, 0.0f, 0.0f };
+		glm::mat4 currentViewMatrix = glm::mat4(1.0f);
 
 		Shader* currentShader = new Shader();
 	};

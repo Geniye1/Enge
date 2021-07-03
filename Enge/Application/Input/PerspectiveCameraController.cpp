@@ -40,7 +40,7 @@ namespace Enge {
 
 	void PerspectiveCameraController::updateMouseLook() {
 		glfwGetCursorPos(m_window, &xPos, &yPos);
-
+		
 		if (firstMouse) {
 			lastX = xPos;
 			lastY = yPos;
@@ -70,6 +70,12 @@ namespace Enge {
 		mouseDirection.y = sin(glm::radians(pitch));
 		mouseDirection.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
 		m_camera.m_cameraFront = glm::normalize(mouseDirection);
+	}
+
+	// This will set to true from the Editor layer whenever the mouse is clicked out of the window
+	// so as to stop the camera from jumping 
+	void PerspectiveCameraController::IsFirstMouse() {
+		firstMouse = true;
 	}
 
 }

@@ -10,4 +10,11 @@ namespace Enge {
 
 	}
 
+	bool Input::GetMouseButtonDown(int mouseCode) {
+		if (glfwGetMouseButton(glfwGetCurrentContext(), mouseCode) == GLFW_PRESS) 
+			return true;
+
+		return false;
+	}
+
 }

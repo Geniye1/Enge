@@ -21,6 +21,8 @@ namespace Enge {
 		void OnUpdate();
 		void Render();
 
+		void isWindowBeingDragged();
+
 		void AddWindow(ImGuiWindow* newWindow);
 	private:
 		std::vector<ImGuiWindow*> m_Windows;

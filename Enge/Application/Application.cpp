@@ -50,8 +50,6 @@ namespace Enge {
 		glfwSetFramebufferSizeCallback(window, Application::ApplicationResizeCallback); 
 		glfwSetErrorCallback(Application::ApplicationErrorCallback);
 
-		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-
 		PerspectiveCameraController* perspectiveCameraCont = new PerspectiveCameraController(window);
 
 		m_layerStack.PushLayer(new TestLayer(perspectiveCameraCont));

@@ -12,9 +12,10 @@ namespace Enge {
 		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enables keyboard controls
 		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;	  // Enables docking (dont laugh)
 		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;   // Enables multi-viewport
+		io.ConfigWindowsMoveFromTitleBarOnly = true;
 
 		SetStyle();
-
+		
 		ImGui_ImplGlfw_InitForOpenGL(window, true);
 		const char* glsl_version = "#version 330";
 		ImGui_ImplOpenGL3_Init(glsl_version);
@@ -46,6 +47,10 @@ namespace Enge {
 
 	void ImGuiEditorManager::Render() {
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+	}
+
+	void ImGuiEditorManager::isWindowBeingDragged() {
+		
 	}
 
 	void ImGuiEditorManager::ShowDockSpace(bool* open) {
