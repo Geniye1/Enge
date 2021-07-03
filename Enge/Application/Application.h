@@ -9,8 +9,8 @@
 
 #include "Layers/LayerStack.h"
 
-#define WINDOW_WIDTH  1080
-#define WINDOW_HEIGHT 720
+#define WINDOW_WIDTH  Application::GetWindowWidth()
+#define WINDOW_HEIGHT Application::GetWindowHeight()
 
 namespace Enge {
 	
@@ -21,6 +21,9 @@ namespace Enge {
 		int ApplicationInit();
 		void ApplicationRun();
 		void ApplicationEnd();
+
+		static int GetWindowWidth();
+		static int GetWindowHeight();
 
 		static void ApplicationErrorCallback(int error, const char* description);
 		static void ApplicationResizeCallback(GLFWwindow* window, int width, int height);

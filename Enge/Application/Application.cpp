@@ -18,15 +18,16 @@ namespace Enge {
 		assert(!s_AppInstance);
 		s_AppInstance = this;
 		shouldClose = false;
-
+		
 		glfwInit();
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+		
 
 		LOG(ENGE_INFO, "STARTING CORE GLFW V%s\n\n", glfwGetVersionString());
 
-		Application::window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Enge", NULL, NULL);
+		Application::window = glfwCreateWindow(1920, 1080, "Enge", NULL, NULL);
 		if (window == NULL) {
 			LOG_ERR("ERROR::GLFW_WINDOW::FAILED_TO_CREATE_WINDOW_LMAO\n");
 			glfwTerminate();
@@ -55,6 +56,8 @@ namespace Enge {
 		m_layerStack.PushLayer(new TestLayer(perspectiveCameraCont));
 
 		Renderer::RendererInit(*window);
+
+		
 
 		return EXIT_SUCCESS;
 	}
@@ -85,12 +88,24 @@ namespace Enge {
 		glfwTerminate();
 	}
 
+	int Application::GetWindowWidth() {
+		int width, height;
+		glfwGetWindowSize(glfwGetCurrentContext(), &width, &height);
+		return width;
+	}
+
+	int Application::GetWindowHeight() {
+		int width, height;
+		glfwGetWindowSize(glfwGetCurrentContext(), &width, &height);
+		return height;
+	}
+
 	void Application::ApplicationErrorCallback(int error, const char* description) {
 		LOG_ERR("GLFW ERROR: code %i, msg: %s\n", error, description);
 	}
 
 	void Application::ApplicationResizeCallback(GLFWwindow* window, int width, int height) {
-		glViewport(0, 0, width, height);
+		glfwSetWindowSize(window, width, height);
 	}
 
 	void Application::ApplicationWindowCloseCallback(void) {
