@@ -61,7 +61,10 @@ namespace Enge {
 			entity->OnStart();
 		}
 
-		frameBuffer->CreateFramebuffer();
+		unsigned int fbTexId = frameBuffer->CreateFramebuffer();
+
+		ImGui3DViewport* viewport = new ImGui3DViewport(fbTexId);
+		imGuiWindowManager->AddWindow(viewport);
 
 		previousTime = glfwGetTime();
 	}
@@ -74,17 +77,7 @@ namespace Enge {
 
 		CalculateFPS();
 
-		/*
-			Render order:
-			1. Framebuffer.FirstPass();
-			2. Render and update each entity in m_EntityStack
-			3. FrameBuffer.SecondPass();
-		*/
-
-		// Background color && Depth bit clearing
-		//glClearColor(0.22f, 0.22f, 0.22f, 1.0f);
-		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+		// Enable the framebuffer so that anything that gets rendered by the Entities is sent into the framebuffer
 		frameBuffer->FirstPass();
 
 		// View matrix to pass to each Entity for rendering
@@ -96,7 +89,12 @@ namespace Enge {
 			entity->Render(viewMatrix);
 		}
 
+		// Disable the framebuffer so any rendering isn't sent into it and then render the stored framebuffer to the quad that fits
+		// to the screen
 		frameBuffer->SecondPass();
+
+		imGuiWindowManager->OnUpdate();
+		imGuiWindowManager->Render();
 	}
 
 	void TestLayer::CalculateFPS() {

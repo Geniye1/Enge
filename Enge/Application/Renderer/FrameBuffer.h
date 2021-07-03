@@ -15,10 +15,11 @@ namespace Enge {
 		FrameBuffer() = default;
 		~FrameBuffer() = default;
 
-		void CreateFramebuffer();
+		unsigned int CreateFramebuffer();
 		void InitalizeScreenQuad();
 		void FirstPass();
 		void SecondPass();
+
 	private:
 		unsigned int m_FrameBuffer = 0;
 		unsigned int m_TextureColorBuffer = 0;

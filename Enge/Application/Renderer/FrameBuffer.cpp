@@ -13,7 +13,7 @@ namespace Enge {
 		 1.0f,  1.0f,  1.0f, 1.0f
 	};
 
-	void FrameBuffer::CreateFramebuffer() {
+	unsigned int FrameBuffer::CreateFramebuffer() {
 
 		// Initialize the VAO and VBO of the screen quad
 		InitalizeScreenQuad();
@@ -53,6 +53,7 @@ namespace Enge {
 		m_FrameBufferShader->use();
 		m_FrameBufferShader->setInt("screenTexture", 0);
 
+		return m_TextureColorBuffer;
 	}
 
 	void FrameBuffer::InitalizeScreenQuad() {

@@ -14,6 +14,8 @@
 #include "../Layers/Layer.h"
 #include "../Shaders/Shader.h"
 #include "../Renderer/FrameBuffer.h"
+#include "../ImGui/ImGuiEditorManager.h"
+#include "../ImGui/Editor/ImGui3DViewport.h"
 #include "../EntityStack.h"
 #include "../Testing/TestEntity.h"
 #include "../Application.h"
@@ -40,6 +42,8 @@ namespace Enge {
 		std::vector<float> vertices;
 
 		PerspectiveCameraController* m_perspectiveCameraCont;
+
+		ImGuiEditorManager* imGuiWindowManager = new ImGuiEditorManager(glfwGetCurrentContext());
 
 		double previousTime = 0;
 		int frameCount = 0;
