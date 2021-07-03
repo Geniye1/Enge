@@ -28,7 +28,7 @@ This is just to rival KFC's console
 * Ability to build projects into exe's
 * PBR lighting system
 
-Listen it's like 12PM that's all I can think of, if I can muster the strength to revisit this README I'll update it but that probably won't happen. Who knows, 
+Listen it's like 12AM that's all I can think of, if I can muster the strength to revisit this README I'll update it but that probably won't happen. Who knows, 
 the engine may be fully complete and you may be very very confused reading this and if that is the case, do not tell me because I simply won't care lmao
 
 Also I am aware that most of the project is comprised of C even though it's not written in C its the Third Party libraries like GLFW and shit idc bro the thing
