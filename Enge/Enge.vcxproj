@@ -166,10 +166,13 @@
     <ClCompile Include="Application\ImGui\Editor\ImGui3DViewport.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Application\ImGui\Editor\ImGuiPropertiesPanel.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="Application\ImGui\ImGuiEditorManager.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Application\ImGui\ImGuiWindow.cpp">
+    <ClCompile Include="Application\ImGui\ImGuiEngeWindow.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Application\Input\Camera.cpp">
@@ -240,8 +243,9 @@
     <ClInclude Include="Application\Entity.h" />
     <ClInclude Include="Application\EntityStack.h" />
     <ClInclude Include="Application\ImGui\Editor\ImGui3DViewport.h" />
+    <ClInclude Include="Application\ImGui\Editor\ImGuiPropertiesPanel.h" />
     <ClInclude Include="Application\ImGui\ImGuiEditorManager.h" />
-    <ClInclude Include="Application\ImGui\ImGuiWindow.h" />
+    <ClInclude Include="Application\ImGui\ImGuiEngeWindow.h" />
     <ClInclude Include="Application\Input\Camera.h" />
     <ClInclude Include="Application\Input\Input.h" />
     <ClInclude Include="Application\Layers\Layer.h" />

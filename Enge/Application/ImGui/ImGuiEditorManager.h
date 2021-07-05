@@ -9,7 +9,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include "ImGuiWindow.h"
+#include "ImGuiEngeWindow.h"
 
 namespace Enge {
 
@@ -21,11 +21,11 @@ namespace Enge {
 		void OnUpdate();
 		void Render();
 
-		void isWindowBeingDragged();
+		bool IsHoveringOverTitleBar();
 
-		void AddWindow(ImGuiWindow* newWindow);
+		void AddWindow(ImGuiEngeWindow* newWindow);
 	private:
-		std::vector<ImGuiWindow*> m_Windows;
+		std::vector<ImGuiEngeWindow*> m_Windows;
 
 		void ShowDockSpace(bool* open);
 		void SetStyle();

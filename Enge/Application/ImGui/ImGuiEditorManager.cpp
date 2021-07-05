@@ -5,7 +5,7 @@ namespace Enge {
 	ImGuiEditorManager::ImGuiEditorManager(GLFWwindow* window) {
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
-
+		
 		ImGuiIO& io = ImGui::GetIO();
 		(void)io;
 
@@ -49,8 +49,14 @@ namespace Enge {
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	}
 
-	void ImGuiEditorManager::isWindowBeingDragged() {
-		
+	bool ImGuiEditorManager::IsHoveringOverTitleBar() {
+		for (ImGuiEngeWindow* window : m_Windows)
+		{
+			if (window->IsFocused()) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	void ImGuiEditorManager::ShowDockSpace(bool* open) {
@@ -95,18 +101,18 @@ namespace Enge {
 	}
 
 	void ImGuiEditorManager::UpdateWindows() {
-		for (ImGuiWindow* window : m_Windows) {
+		for (ImGuiEngeWindow* window : m_Windows) {
 			window->OnUpdate();
 		}
 	}
 
 	void ImGuiEditorManager::DeleteWindows() {
-		for (ImGuiWindow* window : m_Windows) {
+		for (ImGuiEngeWindow* window : m_Windows) {
 			delete window;
 		}
 	}
 
-	void ImGuiEditorManager::AddWindow(ImGuiWindow* newWindow) {
+	void ImGuiEditorManager::AddWindow(ImGuiEngeWindow* newWindow) {
 		m_Windows.push_back(newWindow);
 	}
 

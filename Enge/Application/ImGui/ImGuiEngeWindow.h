@@ -8,13 +8,15 @@
 
 namespace Enge {
 
-	class ImGuiWindow {
+	class ImGuiEngeWindow {
 	public:
-		ImGuiWindow() = default;
-		~ImGuiWindow() = default;
+		ImGuiEngeWindow() = default;
+		~ImGuiEngeWindow() = default;
 
 		virtual void OnUpdate() {}
 		void End();
+
+		bool IsFocused();
 
 		void Visibility(bool vis);
 	protected:

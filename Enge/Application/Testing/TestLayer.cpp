@@ -64,7 +64,9 @@ namespace Enge {
 		unsigned int fbTexId = frameBuffer->CreateFramebuffer();
 
 		ImGui3DViewport* viewport = new ImGui3DViewport(fbTexId);
+		ImGuiPropertiesPanel* properties = new ImGuiPropertiesPanel();
 		imGuiWindowManager->AddWindow(viewport);
+		imGuiWindowManager->AddWindow(properties);
 
 		previousTime = glfwGetTime();
 	}
@@ -79,11 +81,13 @@ namespace Enge {
 
 		// Enable the framebuffer so that anything that gets rendered by the Entities is sent into the framebuffer
 		frameBuffer->FirstPass();
-
+		
+		bool isMouseHoveringOverTitleBar = imGuiWindowManager->IsHoveringOverTitleBar();
+		
 		// View matrix to pass to each Entity for rendering (updated only when pressing LMousebutton
-		if (Input::GetMouseButtonDown(GLFW_MOUSE_BUTTON_1)) {
+		if (Input::GetMouseButtonDown(GLFW_MOUSE_BUTTON_1) && !isMouseHoveringOverTitleBar) {
 			glfwSetInputMode(glfwGetCurrentContext(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-			
+
 			if (!isClickedIn) {
 				glfwSetCursorPos(glfwGetCurrentContext(), WINDOW_WIDTH/2, WINDOW_HEIGHT/2);
 				isClickedIn = true;
@@ -110,11 +114,12 @@ namespace Enge {
 		
 
 		// Disable the framebuffer so any rendering isn't sent into it and then render the stored framebuffer to the quad that fits
-		// to the screen
+		// to the ImGui window
 		frameBuffer->SecondPass();
 
 		imGuiWindowManager->OnUpdate();
 		imGuiWindowManager->Render();
+		//imGuiWindowManager->Test();
 	}
 
 	void TestLayer::CalculateFPS() {

@@ -23,7 +23,6 @@ namespace Enge {
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-		
 
 		LOG(ENGE_INFO, "STARTING CORE GLFW V%s\n\n", glfwGetVersionString());
 

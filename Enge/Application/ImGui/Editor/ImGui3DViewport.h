@@ -2,11 +2,11 @@
 
 #include "../../Enge_PCH.h"
 
-#include "../ImGuiWindow.h"
+#include "../ImGuiEngeWindow.h"
 
 namespace Enge {
 
-	class ImGui3DViewport : public ImGuiWindow {
+	class ImGui3DViewport : public ImGuiEngeWindow {
 	public:
 		ImGui3DViewport(unsigned int glfwTex);
 		~ImGui3DViewport() = default;
