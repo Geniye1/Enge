@@ -2,7 +2,7 @@
 
 namespace Enge {
 
-	ImGuiEditorManager::ImGuiEditorManager(GLFWwindow* window) {
+	/*ImGuiEditorManager::ImGuiEditorManager() {
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
 		
@@ -19,10 +19,36 @@ namespace Enge {
 		ImGui_ImplGlfw_InitForOpenGL(window, true);
 		const char* glsl_version = "#version 330";
 		ImGui_ImplOpenGL3_Init(glsl_version);
-	}
+	}*/
 
 	ImGuiEditorManager::~ImGuiEditorManager() {
 		LOG(ENGE_INFO, "FUCK YOU ASSHOLE");
+	}
+
+	void ImGuiEditorManager::StartEditor(GLFWwindow* window, unsigned int frameBufferID) {
+		IMGUI_CHECKVERSION();
+		ImGui::CreateContext();
+
+		ImGuiIO& io = ImGui::GetIO();
+		(void)io;
+
+		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enables keyboard controls
+		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;	  // Enables docking (dont laugh)
+		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;   // Enables multi-viewport
+		io.ConfigWindowsMoveFromTitleBarOnly = true;
+
+		SetStyle();
+
+		ImGui_ImplGlfw_InitForOpenGL(window, true);
+		const char* glsl_version = "#version 330";
+		ImGui_ImplOpenGL3_Init(glsl_version);
+
+		// Base Editor Windows
+		viewport->Start(frameBufferID);
+
+		AddWindow(viewport);
+		AddWindow(properties);
+
 	}
 
 	void ImGuiEditorManager::OnUpdate() {
@@ -49,14 +75,15 @@ namespace Enge {
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	}
 
-	bool ImGuiEditorManager::IsHoveringOverTitleBar() {
-		for (ImGuiEngeWindow* window : m_Windows)
+	bool ImGuiEditorManager::IsInteractingWithViewport() {
+		/*for (ImGuiEngeWindow* window : m_Windows)
 		{
 			if (window->IsFocused()) {
 				return true;
 			}
 		}
-		return false;
+		return false;*/
+		return viewport->IsInteractingWithViewport();
 	}
 
 	void ImGuiEditorManager::ShowDockSpace(bool* open) {

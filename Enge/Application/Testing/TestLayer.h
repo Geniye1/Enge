@@ -51,7 +51,7 @@ namespace Enge {
 
 		PerspectiveCameraController* m_perspectiveCameraCont;
 
-		ImGuiEditorManager* imGuiWindowManager = new ImGuiEditorManager(glfwGetCurrentContext());
+		ImGuiEditorManager* imGuiWindowManager = new ImGuiEditorManager();
 
 		double previousTime = 0;
 		int frameCount = 0;

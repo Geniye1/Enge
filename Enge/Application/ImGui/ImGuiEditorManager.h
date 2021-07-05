@@ -10,22 +10,29 @@
 #include <GLFW/glfw3.h>
 
 #include "ImGuiEngeWindow.h"
+#include "Editor/ImGui3DViewport.h"
+#include "Editor/ImGuiPropertiesPanel.h"
 
 namespace Enge {
 
 	class ImGuiEditorManager {
 	public:
-		ImGuiEditorManager(GLFWwindow* window);
+		ImGuiEditorManager() = default;
 		~ImGuiEditorManager();
+
+		void StartEditor(GLFWwindow* window, unsigned int frameBufferID);
 
 		void OnUpdate();
 		void Render();
 
-		bool IsHoveringOverTitleBar();
+		bool IsInteractingWithViewport();
 
 		void AddWindow(ImGuiEngeWindow* newWindow);
 	private:
 		std::vector<ImGuiEngeWindow*> m_Windows;
+
+		ImGui3DViewport* viewport = new ImGui3DViewport();
+		ImGuiPropertiesPanel* properties = new ImGuiPropertiesPanel();
 
 		void ShowDockSpace(bool* open);
 		void SetStyle();

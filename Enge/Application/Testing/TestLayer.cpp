@@ -63,10 +63,12 @@ namespace Enge {
 
 		unsigned int fbTexId = frameBuffer->CreateFramebuffer();
 
-		ImGui3DViewport* viewport = new ImGui3DViewport(fbTexId);
+		imGuiWindowManager->StartEditor(glfwGetCurrentContext(), fbTexId);
+
+		/*ImGui3DViewport* viewport = new ImGui3DViewport(fbTexId);
 		ImGuiPropertiesPanel* properties = new ImGuiPropertiesPanel();
 		imGuiWindowManager->AddWindow(viewport);
-		imGuiWindowManager->AddWindow(properties);
+		imGuiWindowManager->AddWindow(properties);*/
 
 		previousTime = glfwGetTime();
 	}
@@ -82,10 +84,10 @@ namespace Enge {
 		// Enable the framebuffer so that anything that gets rendered by the Entities is sent into the framebuffer
 		frameBuffer->FirstPass();
 		
-		bool isMouseHoveringOverTitleBar = imGuiWindowManager->IsHoveringOverTitleBar();
+		bool isInteractingWithViewport = imGuiWindowManager->IsInteractingWithViewport();
 		
 		// View matrix to pass to each Entity for rendering (updated only when pressing LMousebutton
-		if (Input::GetMouseButtonDown(GLFW_MOUSE_BUTTON_1) && !isMouseHoveringOverTitleBar) {
+		if (Input::GetMouseButtonDown(GLFW_MOUSE_BUTTON_1) && isInteractingWithViewport) {
 			glfwSetInputMode(glfwGetCurrentContext(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 			if (!isClickedIn) {
