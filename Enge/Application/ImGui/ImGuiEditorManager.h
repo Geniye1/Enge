@@ -12,6 +12,8 @@
 #include "ImGuiEngeWindow.h"
 #include "Editor/ImGui3DViewport.h"
 #include "Editor/ImGuiPropertiesPanel.h"
+#include "Editor/ImGuiHierarchy.h"
+#include "Editor/ImGuiFileExplorer.h"
 
 namespace Enge {
 
@@ -33,6 +35,8 @@ namespace Enge {
 
 		ImGui3DViewport* viewport = new ImGui3DViewport();
 		ImGuiPropertiesPanel* properties = new ImGuiPropertiesPanel();
+		ImGuiHierarchy* hierarchy = new ImGuiHierarchy();
+		ImGuiFileExplorer* fileExplorer = new ImGuiFileExplorer();
 
 		void ShowDockSpace(bool* open);
 		void SetStyle();

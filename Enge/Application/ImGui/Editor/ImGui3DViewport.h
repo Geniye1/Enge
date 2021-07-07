@@ -20,6 +20,7 @@ namespace Enge {
 		const float viewportWidthRatioY = 9;
 
 		ImTextureID m_renderTexture = 0;
+		ImGuiWindowFlags windowFlags = 0;
 
 		bool isInteractingWithViewport = false;
 	};

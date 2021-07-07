@@ -65,11 +65,6 @@ namespace Enge {
 
 		imGuiWindowManager->StartEditor(glfwGetCurrentContext(), fbTexId);
 
-		/*ImGui3DViewport* viewport = new ImGui3DViewport(fbTexId);
-		ImGuiPropertiesPanel* properties = new ImGuiPropertiesPanel();
-		imGuiWindowManager->AddWindow(viewport);
-		imGuiWindowManager->AddWindow(properties);*/
-
 		previousTime = glfwGetTime();
 	}
 
@@ -121,7 +116,6 @@ namespace Enge {
 
 		imGuiWindowManager->OnUpdate();
 		imGuiWindowManager->Render();
-		//imGuiWindowManager->Test();
 	}
 
 	void TestLayer::CalculateFPS() {

@@ -20,7 +20,7 @@ namespace Enge {
 
 		void Visibility(bool vis);
 	protected:
-		bool Begin(const char* name);
+		bool Begin(const char* name, ImGuiWindowFlags flags = 0);
 
 		bool show = true;
 	};

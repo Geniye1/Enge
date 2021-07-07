@@ -2,8 +2,8 @@
 
 namespace Enge {
 
-	bool ImGuiEngeWindow::Begin(const char* name) {
-		return ImGui::Begin(name, &show);
+	bool ImGuiEngeWindow::Begin(const char* name, ImGuiWindowFlags flags) {
+		return ImGui::Begin(name, &show, flags);
 	}
 	
 	void ImGuiEngeWindow::End() {

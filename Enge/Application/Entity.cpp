@@ -29,7 +29,7 @@ namespace Enge {
 		}
 
 		glm::mat4 viewMatrix = glm::mat4(1.0f);
-		viewMatrix = glm::translate(viewMatrix, glm::vec3(0.0f, 0.0f, -3.0f));
+		viewMatrix = glm::translate(viewMatrix, glm::vec3(0.0f, 0.0f, -6.0f));
 		currentViewMatrix = viewMatrix;
 	}
 

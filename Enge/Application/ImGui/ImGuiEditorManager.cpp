@@ -2,25 +2,6 @@
 
 namespace Enge {
 
-	/*ImGuiEditorManager::ImGuiEditorManager() {
-		IMGUI_CHECKVERSION();
-		ImGui::CreateContext();
-		
-		ImGuiIO& io = ImGui::GetIO();
-		(void)io;
-
-		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enables keyboard controls
-		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;	  // Enables docking (dont laugh)
-		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;   // Enables multi-viewport
-		io.ConfigWindowsMoveFromTitleBarOnly = true;
-
-		SetStyle();
-		
-		ImGui_ImplGlfw_InitForOpenGL(window, true);
-		const char* glsl_version = "#version 330";
-		ImGui_ImplOpenGL3_Init(glsl_version);
-	}*/
-
 	ImGuiEditorManager::~ImGuiEditorManager() {
 		LOG(ENGE_INFO, "FUCK YOU ASSHOLE");
 	}
@@ -48,6 +29,8 @@ namespace Enge {
 
 		AddWindow(viewport);
 		AddWindow(properties);
+		AddWindow(hierarchy);
+		AddWindow(fileExplorer);
 
 	}
 
@@ -58,7 +41,7 @@ namespace Enge {
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 		ImGuiIO& io = ImGui::GetIO();
-
+		
 		ShowDockSpace(&show);
 		UpdateWindows();
 		ImGui::Render();
@@ -76,13 +59,6 @@ namespace Enge {
 	}
 
 	bool ImGuiEditorManager::IsInteractingWithViewport() {
-		/*for (ImGuiEngeWindow* window : m_Windows)
-		{
-			if (window->IsFocused()) {
-				return true;
-			}
-		}
-		return false;*/
 		return viewport->IsInteractingWithViewport();
 	}
 

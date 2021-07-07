@@ -111,6 +111,12 @@
     <ClCompile Include="Application\ImGui\Editor\ImGuiPropertiesPanel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Application\ImGui\Editor\ImGuiHierarchy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\ImGui\Editor\ImGuiFileExplorer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application\Logger\Logger.h">
@@ -198,6 +204,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Application\ImGui\Editor\ImGuiPropertiesPanel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\ImGui\Editor\ImGuiHierarchy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\ImGui\Editor\ImGuiFileExplorer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -2,32 +2,14 @@
 
 namespace Enge {
 
-	/*ImGui3DViewport::ImGui3DViewport(unsigned int glfwTex)
-		: m_renderTexture((ImTextureID)glfwTex)
-	{
-	}*/
-
 	void ImGui3DViewport::Start(unsigned int glfwTex) {
 		m_renderTexture = (ImTextureID)glfwTex;
+		windowFlags = ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_NoTitleBar;
 	}
 
 	void ImGui3DViewport::OnUpdate() {
 		if (show) {
-			if (!Begin("Viewport")) {
-				End();
-			}
-			else {
-				ImGui::BeginChild("GameRender");
-				ImVec2 wSize = ImGui::GetWindowViewport()->Size;
-				ImDrawList* d = ImGui::GetWindowDrawList();
-				ImGui::InvisibleButton("ViewportInteract", wSize);
-				
-				if (ImGui::IsItemActive()) {
-					isInteractingWithViewport = true;
-				}
-				else {
-					isInteractingWithViewport = false;
-				}
+			if (Begin("Viewport", windowFlags)) {
 
 				/* 
 					This clusterfuck is meant to preserve the 16:9 aspect ratio whenever the viewport is resized,
@@ -36,7 +18,7 @@ namespace Enge {
 				*/
 				ImVec2 wMin = ImGui::GetWindowContentRegionMin();
 				ImVec2 wMax = ImGui::GetWindowContentRegionMax();
-
+				
 				wMin.x += ImGui::GetWindowPos().x;
 				wMin.y += ImGui::GetWindowPos().y;
 				wMax.x += ImGui::GetWindowPos().x;
@@ -44,12 +26,13 @@ namespace Enge {
 				
 				float distanceBtwMinAndMaxY = wMax.y - wMin.y;
 				float distanceBtwMinAndMaxX = wMax.x - wMin.x;
+				
 				if (distanceBtwMinAndMaxY < 1080) {
 					float offsetY = (1080 - distanceBtwMinAndMaxY) / 2;
-					float offsetX = ((1920 - distanceBtwMinAndMaxX) / 2) - (1080 - distanceBtwMinAndMaxY); // I have no idea why this works but shit ill take it
-					wMin.y += offsetY;
+					float offsetX = (1920 - distanceBtwMinAndMaxX) / 2;
+					wMin.y -= offsetY;
 					wMin.x -= offsetX;
-					wMax.y -= offsetY;
+					wMax.y += offsetY;
 					wMax.x += offsetX;
 				}
 				else if (distanceBtwMinAndMaxY > 1080) {
@@ -58,12 +41,19 @@ namespace Enge {
 					wMax.y -= offsetY;
 				}
 				
+				ImDrawList* d = ImGui::GetWindowDrawList();
 				d->AddImage(m_renderTexture, wMin, wMax, ImVec2(0, 1), ImVec2(1, 0));
 
-				//ImGui::Image(m_renderTexture, wSize, ImVec2(0, 1), ImVec2(1, 0));
-				ImGui::EndChild();
-				End();
+				ImGui::InvisibleButton("ViewportInteract", wMax);
+				if (ImGui::IsItemActive()) {
+					isInteractingWithViewport = true;
+				}
+				else {
+					isInteractingWithViewport = false;
+				}	
 			}
+
+			End();
 		}
 	}
 
